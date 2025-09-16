@@ -1,1 +1,10 @@
-# deep-learning-framework
+# 深度学习框架配置参数分析
+
+此项目用于分析GitHub仓库中的配置参数变更，特别关注训练不稳定问题的根本原因分析。
+
+## 功能
+
+- 分析`config/training_params.yaml`文件中的参数变更
+- 识别导致训练不稳定的参数修改
+- 查找相关的GitHub issues
+- 生成详细的变更分析报告
