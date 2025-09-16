@@ -1,0 +1,18 @@
+{
+  "target_commit_sha": "5630c2865642e925ee0d2b867e708e652f3d4edd",
+  "commit_author": "yanmoai6666-star",
+  "commit_date": "2025-09-16",
+  "parameter_changes": {
+    "micro_batch_size_per_device": {
+      "before": 4,
+      "after": 1,
+      "line_number": 25
+    },
+    "gradient_accumulation_steps": {
+      "before": 8,
+      "after": 16,
+      "line_number": 26
+    }
+  },
+  "related_issue_number_list": [1, 2, 3, 4]
+}
