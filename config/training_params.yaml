@@ -1,0 +1,56 @@
+# 模型训练核心配置（初始版本）
+training_settings:
+  # 设备与分布式配置
+  device: "gpu"  # 训练设备类型：gpu/cpu
+  num_gpus: 2    # 使用的GPU数量
+  distributed_mode: "ddp"  # 分布式训练模式：ddp/horovod/none
+
+  # 批次与累积配置
+  micro_batch_size_per_device: 4  
+  gradient_accumulation_steps: 8  
+  global_batch_size: 64  # 全局批次大小（自动计算：micro_batch_size_per_device * num_gpus * gradient_accumulation_steps）
+  batch_padding: True    # 是否对批次进行补齐
+
+  # 优化器与学习率
+  optimizer: "adamw"
+  learning_rate: 0.001
+  lr_scheduler: "cosine"  # 学习率调度策略
+  warmup_steps: 1000      # 学习率预热步数
+  weight_decay: 0.01      # 权重衰减系数
+  clip_grad_norm: 1.0     # 梯度裁剪阈值
+
+  # 训练周期与早停
+  epochs: 10
+  max_steps: -1  # 最大训练步数（-1表示由epochs决定）
+  early_stopping:
+    enable: True
+    patience: 3  # 连续3个epoch无提升则停止
+    monitor: "val_loss"
+
+  # 数据加载配置
+  data_loader:
+    num_workers: 4  # 数据加载进程数
+    pin_memory: True  # 是否锁定内存
+    prefetch_factor: 2  # 预加载倍数
+
+  # 正则化配置
+  dropout_rate: 0.15
+  label_smoothing: 0.05  # 标签平滑系数
+
+  # 混合精度训练
+  mixed_precision:
+    enable: True
+    dtype: "float16"  # 混合精度类型
+
+  # 日志与保存设置
+  logging:
+    interval: 10  # 日志打印间隔（步数）
+    save_checkpoint: True
+    checkpoint_dir: "./checkpoints"
+    save_interval: 1  # 每隔多少epoch保存一次
+
+  # 验证配置
+  validation:
+    enable: True
+    interval: 1  # 每隔多少epoch验证一次
+    batch_size: 32  # 验证批次大小
